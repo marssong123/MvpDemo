@@ -10,7 +10,18 @@ android {
         targetSdkVersion 22
         versionCode 20
         versionName "2.0"
+
+        //配置ndk
+        ndk {
+            moduleName "MyLibrary"
+        }
+        sourceSets.main {
+            jni.srcDirs = []
+            jniLibs.srcDir "src/main/libs"
+        }
     }
+
+
     buildTypes {
         release {
             minifyEnabled false

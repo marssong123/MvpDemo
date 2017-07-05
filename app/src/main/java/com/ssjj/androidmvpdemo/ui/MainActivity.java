@@ -13,6 +13,7 @@ import com.ssjj.androidmvpdemo.mvp.bean.BaseBean;
 import com.ssjj.androidmvpdemo.mvp.bean.HotWordsBean;
 import com.ssjj.androidmvpdemo.mvp.presenter.MainPresenter;
 import com.ssjj.androidmvpdemo.mvp.view.MainView;
+import com.ssjj.androidmvpdemo.ndk.MyJni;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         ButterKnife.bind(this);
         //请求接口
         mvpPresenter.loadWords(10);
+        text.setText(new MyJni().getString());
     }
 
     @Override
@@ -48,7 +50,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         for(String hotword:hotWordsBean.getData()){
             hotlist=hotlist.concat(hotword+"\n");
         }
-        text.setText(hotlist);
+//        text.setText(hotlist);
 
     }
 
