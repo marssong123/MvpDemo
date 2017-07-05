@@ -29,14 +29,14 @@ public class BasePresenter<V> implements Presenter<V> {
         onUnsubscribe();
     }
 
-    public void onUnsubscribe() {
+    private void onUnsubscribe() {
         if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
             mCompositeSubscription.unsubscribe();
         }
     }
 
 
-    public void addSubscription(Observable observable, Subscriber subscriber) {
+    protected void addSubscription(Observable observable, Subscriber subscriber) {
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeSubscription();
         }
