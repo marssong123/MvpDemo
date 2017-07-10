@@ -1,7 +1,7 @@
 package com.ssjj.androidmvpdemo.datastructure.queue;
 
 
-import ssjj.newdemo.datastructure.Node;
+import com.ssjj.androidmvpdemo.datastructure.Node;
 
 /**
  * 队列的实现

@@ -1,7 +1,7 @@
 package com.ssjj.androidmvpdemo.datastructure.linkedlist;
 
 
-import ssjj.newdemo.datastructure.Node;
+import com.ssjj.androidmvpdemo.datastructure.Node;
 
 /**
  * 1. 判断一个链表是否存在环儿<br>

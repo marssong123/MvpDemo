@@ -9,3 +9,4 @@ JNIEXPORT jstring JNICALL Java_com_ssjj_androidmvpdemo_ndk_MyJni_getString
 
     return (*env)->NewStringUTF(env,"This is a test");
 }
+

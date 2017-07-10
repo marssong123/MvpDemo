@@ -1,8 +1,8 @@
 package com.ssjj.androidmvpdemo.datastructure.queue;
 
 
-import ssjj.newdemo.datastructure.stack.IStack;
-import ssjj.newdemo.datastructure.stack.Stack;
+import com.ssjj.androidmvpdemo.datastructure.stack.IStack;
+import com.ssjj.androidmvpdemo.datastructure.stack.Stack;
 
 /**
  * 使用两个栈实现队列

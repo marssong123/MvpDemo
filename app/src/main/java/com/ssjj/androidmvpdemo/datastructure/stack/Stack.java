@@ -1,7 +1,7 @@
 package com.ssjj.androidmvpdemo.datastructure.stack;
 
 
-import ssjj.newdemo.datastructure.Node;
+import com.ssjj.androidmvpdemo.datastructure.Node;
 
 /**
  * 栈的实现

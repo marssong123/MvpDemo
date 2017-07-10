@@ -1,9 +1,10 @@
 package com.ssjj.androidmvpdemo.datastructure.graph;
 
+import com.ssjj.androidmvpdemo.datastructure.queue.IQueue;
+import com.ssjj.androidmvpdemo.datastructure.queue.Queue;
+
 import java.util.List;
 
-import ssjj.newdemo.datastructure.queue.IQueue;
-import ssjj.newdemo.datastructure.queue.Queue;
 
 
 /**

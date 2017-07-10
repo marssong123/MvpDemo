@@ -1,8 +1,8 @@
 package com.ssjj.androidmvpdemo.datastructure.graph;
 
 
-import ssjj.newdemo.datastructure.queue.IQueue;
-import ssjj.newdemo.datastructure.queue.Queue;
+import com.ssjj.androidmvpdemo.datastructure.queue.IQueue;
+import com.ssjj.androidmvpdemo.datastructure.queue.Queue;
 
 /**
  * 图的广度优先搜索和深度优先搜索实现

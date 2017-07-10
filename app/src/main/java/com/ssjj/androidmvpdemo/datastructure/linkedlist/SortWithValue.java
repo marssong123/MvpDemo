@@ -1,7 +1,7 @@
 package com.ssjj.androidmvpdemo.datastructure.linkedlist;
 
 
-import ssjj.newdemo.datastructure.Node;
+import com.ssjj.androidmvpdemo.datastructure.Node;
 
 /**
  * 给出一个值,将链表中左边数据都小于此值,右边的值都大于等于此值
