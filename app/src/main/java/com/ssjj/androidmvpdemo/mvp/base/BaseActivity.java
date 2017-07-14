@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
-import rx.subscriptions.CompositeSubscription;
 
 public class BaseActivity extends AppCompatActivity {
     public Activity mActivity;
@@ -47,16 +46,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        onUnsubscribe();
         super.onDestroy();
-    }
-
-    private CompositeSubscription mCompositeSubscription;
-
-    public void onUnsubscribe() {
-        if (mCompositeSubscription != null) {
-            mCompositeSubscription.unsubscribe();
-        }
     }
 
     public void toastShow(String msg) {
