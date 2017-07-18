@@ -53,6 +53,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         }
 //        text.setText(hotlist);
         Toast.makeText(mActivity, "request success", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, "merge to master", Toast.LENGTH_SHORT).show();
 
     }
 
