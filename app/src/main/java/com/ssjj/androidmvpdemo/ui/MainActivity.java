@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ssjj.androidmvpdemo.R;
 import com.ssjj.androidmvpdemo.mvp.base.MvpActivity;
@@ -51,6 +52,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
             hotlist=hotlist.concat(hotword+"\n");
         }
 //        text.setText(hotlist);
+        Toast.makeText(mActivity, "request success", Toast.LENGTH_SHORT).show();
 
     }
 
