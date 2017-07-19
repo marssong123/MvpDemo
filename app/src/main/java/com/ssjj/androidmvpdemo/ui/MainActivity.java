@@ -34,6 +34,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         //请求接口
         mvpPresenter.loadWords(10);
         text.setText(new MyJni().getString());
+        text.setText(new MyJni().getString());
     }
 
     @Override
