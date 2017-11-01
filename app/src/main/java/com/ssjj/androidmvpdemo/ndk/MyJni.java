@@ -10,7 +10,8 @@ public class MyJni {
 private static final String TAG = "MyJni" ;
     static {
         System.loadLibrary("MyLibrary");
-        Log.d(TAG, "static initializer: ");
+        Log.d(TAG, "static initializer1: ");
+        Log.d(TAG, "static initializer2: ");
     }
 
     public  native String getString();
