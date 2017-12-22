@@ -316,4 +316,8 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     }
 
 
+    private void testRecord(){
+        
+    }
+
 }
