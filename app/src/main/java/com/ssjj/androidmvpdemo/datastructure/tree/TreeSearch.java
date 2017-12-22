@@ -25,14 +25,17 @@ public class TreeSearch<T> {
 				searchPath.append("->");
 			}
 			searchPath.append(root.data);
-			if(root.data.equals(data))
+			if(root.data.equals(data)) {
 				isSearched = true;
+			}
 		}
 		
-		if(!isSearched)
-		    preorderTraversal(root.left, data);
-		if(!isSearched)
-		    preorderTraversal(root.right, data);
+		if(!isSearched) {
+			preorderTraversal(root.left, data);
+		}
+		if(!isSearched) {
+			preorderTraversal(root.right, data);
+		}
 	}
 	
 	/**
@@ -46,20 +49,23 @@ public class TreeSearch<T> {
 			return;
 		}
 		
-		if(!isSearched)
-		    inorderTraversal(root.left, data);
+		if(!isSearched) {
+			inorderTraversal(root.left, data);
+		}
 		
 		if(!isSearched){
 			if(!searchPath.toString().equals("")){
 				searchPath.append("->");
 			}
 			searchPath.append(root.data);
-			if(root.data.equals(data))
+			if(root.data.equals(data)) {
 				isSearched = true;
+			}
 		}
 		
-		if(!isSearched)
-		    inorderTraversal(root.right, data);
+		if(!isSearched) {
+			inorderTraversal(root.right, data);
+		}
 	}
 	
 	/**
@@ -72,19 +78,22 @@ public class TreeSearch<T> {
 			return;
 		}
 		
-		if(!isSearched)
-		    postorderTraversal(root.left, data);
+		if(!isSearched) {
+			postorderTraversal(root.left, data);
+		}
 		
-		if(!isSearched)
-		    postorderTraversal(root.right, data);
+		if(!isSearched) {
+			postorderTraversal(root.right, data);
+		}
 		
 		if(!isSearched){
 			if(!searchPath.toString().equals("")){
 				searchPath.append("->");
 			}
 			searchPath.append(root.data);
-			if(root.data.equals(data))
+			if(root.data.equals(data)) {
 				isSearched = true;
+			}
 		}
 	}
 }

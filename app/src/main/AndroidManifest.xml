@@ -27,6 +27,7 @@
         <!--</intent-filter>-->
         <!--</activity>-->
 
+        <activity android:name=".now.MusicActivity"/>
     </application>
     <instrumentation android:targetPackage="com.ssjj.androidmvpdemo.test" android:name="android.test.InstrumentationTestRunner" />
 </manifest>

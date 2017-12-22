@@ -14,7 +14,7 @@ public class MinBinaryTree {
 		int middle =  (start + end) / 2;
 		
 		TreeNode<Integer> treeNode = new TreeNode<Integer>(array[middle]);
-		
+
 		treeNode.left = insertNodeFromArray(array, start, middle - 1);
 		treeNode.right = insertNodeFromArray(array, middle + 1, end);
 		
@@ -29,5 +29,9 @@ public class MinBinaryTree {
 		MinBinaryTree.insertNodeFromArray(array, 0, array.length - 1);
 
 	}
+
+
+
+
 
 }

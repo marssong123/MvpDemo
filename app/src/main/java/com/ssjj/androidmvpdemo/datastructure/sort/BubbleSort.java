@@ -10,7 +10,12 @@ package com.ssjj.androidmvpdemo.datastructure.sort;
  */
 public class BubbleSort implements ISort {
 
-	public void sort(int[] array) {
+	public static void main(String[] args) {
+		int[] a ={2,56,3,29,7,4,24,15,11};
+		sort1(a);
+	}
+
+	public static void sort1(int[] array) {
 		int temp = 0;
 		for(int i = 0; i < array.length; i++){
 			for(int j = 0; j < array.length - 1; j++){
@@ -21,6 +26,18 @@ public class BubbleSort implements ISort {
 				}
 			}
 		}
+		for (int i = 0; i < array.length; i++) {
+			System.out.print(array[i]+",");
+		}
 	}
 
+	/**
+	 * 对数组array进行升序排序
+	 *
+	 * @param array
+	 */
+	@Override
+	public void sort(int[] array) {
+
+	}
 }
