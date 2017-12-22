@@ -17,25 +17,25 @@ public class TreeNode<T> {
 	/**
 	 * 输出树
 	 */
-//	public void printTree(){
-//		int height = getHeight(this);
-//		String[][] array = new String[height][height*2];
-//		
-//		TreeNode<T> left = this.left;
-//		TreeNode<T> right = this.right;
-//		
-//	}
+	public void printTree(){
+		int height = getHeight(this);
+		String[][] array = new String[height][height*2];
+
+		TreeNode<T> left = this.left;
+		TreeNode<T> right = this.right;
+
+	}
 	
 	/**
 	 * 返回树root的高度
 	 * @param root
 	 * @return
 	 */
-//	private int getHeight(TreeNode<T> root){
-//		if(root == null){
-//			return 0;
-//		}
-//		
-//		return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
-//	}
+	private int getHeight(TreeNode<T> root){
+		if(root == null){
+			return 0;
+		}
+
+		return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
+	}
 }
