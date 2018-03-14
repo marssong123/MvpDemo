@@ -37,4 +37,8 @@ public class MusicActivity extends AppCompatActivity {
     private void fixBug1(){
 
     }
+
+    private void fixBug2(){
+
+    }
 }
