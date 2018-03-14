@@ -1,4 +1,4 @@
-package com.ssjj.androidmvpdemo.ui;
+package com.ssjj.androidmvpdemo;
 /**
  * Created by songmars on 16/8/26.
  */
@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ssjj.androidmvpdemo.R;
 import com.ssjj.androidmvpdemo.mvp.base.MvpActivity;
 import com.ssjj.androidmvpdemo.mvp.bean.BaseBean;
 import com.ssjj.androidmvpdemo.mvp.bean.HotWordsBean;
@@ -22,6 +21,7 @@ import com.ssjj.androidmvpdemo.mvp.presenter.MainPresenter;
 import com.ssjj.androidmvpdemo.mvp.view.MainView;
 import com.ssjj.androidmvpdemo.ndk.MyJni;
 import com.ssjj.androidmvpdemo.now.MusicActivity;
+import com.ssjj.androidmvpdemo.ui.MyPopWindow;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,7 +56,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         //请求接口
         mvpPresenter.loadWords(10);
 
-
         final View result = LayoutInflater.from(this).inflate(R.layout.test, null, false);
 
         final MyPopWindow myPopWindow = new MyPopWindow(MainActivity.this);
@@ -82,11 +81,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
 
     }
-
-
-    private void showDemo() {
-    }
-
 
     private void lock() {
         final Demo demo = new Demo();
@@ -292,7 +286,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         for (String hotword : hotWordsBean.getData()) {
             hotlist = hotlist.concat(hotword + "\n");
         }
-//        text.setText(hotlist);
 
     }
 
@@ -315,9 +308,5 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     public void hideLoading() {
     }
 
-
-    private void testRecord(){
-        
-    }
 
 }
