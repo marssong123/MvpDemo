@@ -41,4 +41,7 @@ public class MusicActivity extends AppCompatActivity {
     private void fixBug2(){
 
     }
+    private void fixBug3(){
+
+    }
 }
