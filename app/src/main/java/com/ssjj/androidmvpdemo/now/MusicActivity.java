@@ -32,5 +32,9 @@ public class MusicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+    }
+    private void fixBug1(){
+
     }
 }
