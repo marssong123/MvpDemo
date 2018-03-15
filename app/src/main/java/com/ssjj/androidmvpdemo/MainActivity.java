@@ -164,12 +164,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     public void hideLoading() {
     }
 
-   private void whatFuck(){}
-
-    private  void luck2(){}
-
-    private  void luck3(){}
-
 
 
 
