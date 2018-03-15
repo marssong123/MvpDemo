@@ -164,16 +164,11 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     public void hideLoading() {
     }
 
-    private void love1(){}
-    private void likeVideo(){
-        Toast.makeText(mActivity, "", Toast.LENGTH_SHORT).show();
-        Log.e(TAG, "likeVideo: " );
-    }
+    private void fuck1(){}
 
+    private void fuck2(){}
 
-    private void love2(){}
-
-    private void love3(){}
+    private void fuck3(){}
 
 
 
