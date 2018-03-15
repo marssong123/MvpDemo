@@ -4,7 +4,6 @@ package com.ssjj.androidmvpdemo;
  */
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,8 +25,6 @@ import com.ssjj.androidmvpdemo.ui.MyPopWindow;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -82,31 +79,8 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     }
 
-    private void lock() {
-        final Demo demo = new Demo();
-        ReentrantLock lock = new ReentrantLock();
-        Condition condition = lock.newCondition();
-        for (int i = 0; i < 3; i++) {
-            Thread thread1 = new Thread(new Test1(demo, i, lock, condition));
-            thread1.start();
-        }
-    }
-
     public static void main() {
 
-    }
-
-    /**
-     * Dispatch onPause() to fragments.
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     private void rxJavaMethod() {
@@ -150,125 +124,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     }
 
 
-    private class Test1 implements Runnable {
-
-        Demo demo;
-        int i;
-        ReentrantLock lock;
-        Condition condition;
-
-        public Test1(Demo demo, int i, ReentrantLock lock, Condition condition) {
-            this.demo = demo;
-            this.i = i;
-            this.lock = lock;
-            this.condition = condition;
-        }
-
-        @Override
-        public void run() {
-            demo.print2(i, lock, condition);
-        }
-    }
-
-    class Demo {
-
-        void print2(int i, ReentrantLock lock, Condition condition) {
-            lock.lock();
-
-            Log.e(TAG, "print: 开始" + i);
-
-            try {
-                if (i == 1) {
-                    condition.await();
-                }
-                if (i == 2) {
-                    condition.signal();
-                }
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                Log.e(TAG, "print: 结束" + i);
-                lock.unlock();
-            }
-
-        }
-    }
-
-    private ArrayList<File> getFile(String s) {
-        ArrayList<File> files = new ArrayList<>();
-        return files;
-
-    }
-
-    public Point[] kClosest(Point[] points, Point origin, int k) {
-        // Write your code here
-        Point[] points1 = new Point[100];
-        for (int j = 1; j < points.length; j++) {
-            for (int i = 0; i < points.length - 1; j++) {
-
-                if ((points[i].x - origin.x) * (points[i].x - origin.x) + (points[i].y - origin.y) * (points[i].y - origin.y) < (points[i + 1].x - origin.x) * (points[i + 1].x - origin.x) + (points[i + 1].y - origin.y) * (points[i + 1].x - origin.y)) {
-                    Point t = points[i + 1];
-                    points[i + 1] = points[i];
-                    points[i] = t;
-                } else if ((points[i].x - origin.x) * (points[i].x - origin.x) + (points[i].y - origin.y) * (points[i].y - origin.y) == (points[i + 1].x - origin.x) * (points[i + 1].x - origin.x) + (points[i + 1].y - origin.y) * (points[i + 1].x - origin.y)) {
-                    if (points[i].x < points[i + 1].x) {
-                        Point t = points[i + 1];
-                        points[i + 1] = points[i];
-                        points[i] = t;
-                    } else if (points[i].x == points[i + 1].x) {
-                        if (points[i].y < points[i + 1].y) {
-                            Point t = points[i + 1];
-                            points[i + 1] = points[i];
-                            points[i] = t;
-                        }
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < k; i++) {
-            points1[i] = points[i];
-        }
-        return points1;
-    }
-
-    public int findMin(int[] arr) {
-
-        int max1 = 0;
-        int max2 = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (max1 < arr[i]) {
-                max1 = arr[i];
-            }
-        }
-        for (int i = 0; i < arr.length; i++) {
-            if (max2 < arr[i]) {
-                if (arr[i] != max1) {
-                    max2 = arr[i];
-                }
-            }
-        }
-        Log.d(TAG, "findMin1: " + max1);
-        Log.d(TAG, "findMin2: " + max2);
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != max1 && arr[i] != max2) {
-                if (max1 >= max2) {
-                    max2 += arr[i];
-                } else {
-                    max1 += arr[i];
-                }
-            }
-        }
-
-        return Math.abs(max1 - max2);
-
-    }
 
 
     @Override
