@@ -46,6 +46,10 @@ public class MusicActivity extends AppCompatActivity {
     private void foo3(){
 
     }
+    private void foo4(){
+
+    }
+
 
 
 
