@@ -34,7 +34,7 @@ public class MusicActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
     }
-   private void test01(){
+   private void newTest(){
 
    }
 }
