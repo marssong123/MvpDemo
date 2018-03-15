@@ -170,10 +170,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     private void video3(){}
 
-    private void newMylife(){
-
-        toastShow("123");
-    }
     private void test1(){}
 
 
