@@ -164,7 +164,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     public void hideLoading() {
     }
 
-
+    private void fuck(){
+        Toast.makeText(mActivity, "fuck", Toast.LENGTH_SHORT).show();
+    }
 
 
 
