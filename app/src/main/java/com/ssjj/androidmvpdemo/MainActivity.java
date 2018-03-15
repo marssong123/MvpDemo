@@ -157,6 +157,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     @Override
     public void showLoading() {
+        Toast.makeText(mActivity, "develop", Toast.LENGTH_SHORT).show();
     }
 
     @Override
