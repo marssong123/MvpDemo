@@ -166,6 +166,10 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
    private void whatFuck(){}
 
+    private  void luck2(){}
+
+    private  void luck3(){}
+
 
 
 
