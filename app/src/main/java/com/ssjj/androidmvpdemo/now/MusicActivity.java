@@ -37,4 +37,11 @@ public class MusicActivity extends AppCompatActivity {
    private void newTest(){
 
    }
+   private void newTest1(){
+
+   }
+
+
+
+
 }
