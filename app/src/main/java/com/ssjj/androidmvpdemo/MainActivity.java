@@ -164,6 +164,12 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     public void hideLoading() {
     }
 
+    private void video1(){}
+
+    private void video2(){}
+
+    private void video3(){}
+
     private void newMylife(){
 
         toastShow("123");
