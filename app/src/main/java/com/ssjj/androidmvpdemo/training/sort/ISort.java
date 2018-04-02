@@ -1,4 +1,4 @@
-package com.ssjj.androidmvpdemo.datastructure.sort;
+package com.ssjj.androidmvpdemo.training.sort;
 
 /**
  * 排序算法的接口

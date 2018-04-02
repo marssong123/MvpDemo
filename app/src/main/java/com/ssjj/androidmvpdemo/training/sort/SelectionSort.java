@@ -1,4 +1,4 @@
-package com.ssjj.androidmvpdemo.datastructure.sort;
+package com.ssjj.androidmvpdemo.training.sort;
 
 /**
  * 选择排序<br>
