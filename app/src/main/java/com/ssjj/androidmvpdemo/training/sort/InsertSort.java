@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ssjj.androidmvpdemo.datastructure.sort;
+package com.ssjj.androidmvpdemo.training.sort;
 
 /**
  * 插入排序实现

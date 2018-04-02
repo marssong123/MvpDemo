@@ -1,4 +1,4 @@
-package com.ssjj.androidmvpdemo.datastructure.sort;
+package com.ssjj.androidmvpdemo.training.sort;
 
 /**
  * 冒泡排序<br>

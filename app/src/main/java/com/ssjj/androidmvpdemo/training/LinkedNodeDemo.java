@@ -1,4 +1,4 @@
-package com.ssjj.androidmvpdemo.datastructure.train;
+package com.ssjj.androidmvpdemo.training;
 
 /**
  * @author songyu
@@ -84,23 +84,6 @@ public class LinkedNodeDemo {
             this.next = next;
         }
     }
-
-//    private Node resort(Node head){
-//        if(head == null || head.next== null){
-//            return head;
-//        }
-//        Node p=null;
-//        Node n=null;
-//        while (head.next!=null){
-//          n=head.next;
-//          head.next = p;
-//          p= head;
-//          head= n;
-//        }
-//        head.next=p;
-//        return head;
-//
-//    }
 
 
     private Node resort(Node head) {
