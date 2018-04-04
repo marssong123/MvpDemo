@@ -73,8 +73,8 @@ public class LinkedNodeDemo {
      * 单向链表定义
      **/
     static class Node<T> {
-        private T value;    //节点值
-        private Node<T> next;   //后继节点
+        public T value;    //节点值
+        public Node<T> next;   //后继节点
 
         public Node() {
         }
