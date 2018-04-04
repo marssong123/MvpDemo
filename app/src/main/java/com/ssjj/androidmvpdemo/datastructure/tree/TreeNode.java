@@ -6,9 +6,9 @@ package com.ssjj.androidmvpdemo.datastructure.tree;
  *
  */
 public class TreeNode<T> {
-	T data;
-	TreeNode<T> left;
-	TreeNode<T> right;
+	public T data;
+	public TreeNode<T> left;
+	public TreeNode<T> right;
 	
 	public TreeNode(T data){
 		this.data = data;

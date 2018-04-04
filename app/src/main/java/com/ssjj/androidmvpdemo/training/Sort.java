@@ -1,6 +1,8 @@
 package com.ssjj.androidmvpdemo.training;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * Created by songyu on 2018/4/2.
@@ -211,4 +213,53 @@ public class Sort {
     }
 
 
+//    现有一些随机生成的数字要将其依次传入，请设计一个高效算法，对于每次传入一个数字后，算出当前所有传入数字的中位数。(若传入了偶数个数字则令中位数为第n/2小的数字，n为已传入数字个数)。
+//    给定一个int数组A，为传入的数字序列，同时给定序列大小n，请返回一个int数组，代表每次传入后的中位数。保证n小于等于1000。
+//    1.通过最大堆、最小堆来实现实时中位数的获取。
+//    2.最大堆中存放比最小堆小的元素。
+//    3.如果最大堆的对头元素大于最小堆，则进行交换。
+//    4.偶数下标的元素存入最小堆，奇数下标的元素存入最大堆。
+
+
+//    堆是完全二叉树结构且 树中任一非叶子结点的关键字均不大于（或不小于）其左右孩子（若存在）结点的关键字。
+
+    public int[] getMiddle(int[] A, int n) {
+        // write code here
+        int[] res = new int[A.length];
+
+        // 构造最大堆
+        Comparator<Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2 - o1;
+            }
+        };
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(n, comparator);
+        // 构造最小堆
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(n);
+
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 0) {
+                // 存入最小堆前判断当前元素是否小于最大堆的堆顶元素
+                if (!maxHeap.isEmpty() && A[i] < maxHeap.peek()) {
+                    minHeap.offer(maxHeap.poll());
+                    maxHeap.offer(A[i]);
+                } else {
+                    minHeap.offer(A[i]);
+                }
+                res[i] = minHeap.peek();
+            } else {
+                // 存入最大堆之前判断当前元素是否大于最小堆的堆顶元素
+                if (!minHeap.isEmpty() && A[i] > minHeap.peek()) {
+                    maxHeap.offer(minHeap.poll());
+                    minHeap.offer(A[i]);
+                } else {
+                    maxHeap.offer(A[i]);
+                }
+                res[i] = maxHeap.peek();
+            }
+        }
+
+        return res;
+    }
 }
