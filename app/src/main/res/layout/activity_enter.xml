@@ -1,28 +1,62 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:id="@+id/rl_root"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.MainActivity">
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/text1"
-        android:visibility="gone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_my"
         android:layout_width="100dp"
-        android:text="点击"
+        android:layout_height="100dp"
         android:gravity="center"
-        android:layout_centerInParent="true"
-        android:layout_height="100dp" />
+        android:text="点击" />
 
 
+    <Button
+        android:id="@+id/btn_my1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="点击" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btn_my2"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="点击" />
+
+    <Button
+        android:id="@+id/btn_my3"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="点击" />
+
+    <Button
+        android:id="@+id/btn_my4"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="点击" />
+    <Button
+        android:id="@+id/btn_my5"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="点击" />
+
+
+</LinearLayout>
