@@ -3,8 +3,10 @@ package com.ssjj.androidmvpdemo;
  * Created by songmars on 16/8/26.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +17,6 @@ import com.ssjj.androidmvpdemo.mvp.bean.BaseBean;
 import com.ssjj.androidmvpdemo.mvp.bean.HotWordsBean;
 import com.ssjj.androidmvpdemo.mvp.presenter.MainPresenter;
 import com.ssjj.androidmvpdemo.mvp.view.MainView;
-import com.ssjj.androidmvpdemo.ndk.MyJni;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,24 +46,17 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
         setContentView(R.layout.activity_enter);
         ButterKnife.bind(this);
 
-        new Thread(new Runnable() {
+        btnMy.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                    Log.e(TAG, "run: 1" );
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.e(TAG, "run: 2");
-
-                            new MyJni().getString() ;
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+            public void onClick(View v) {
+                ViewStore.getInstance().inflate(R.layout.activity_video_record ,MainActivity.this);
+            }
+        });
+         btnMy1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this , VideoRecordActivity.class) ;
+                startActivity(intent);
             }
         });
 

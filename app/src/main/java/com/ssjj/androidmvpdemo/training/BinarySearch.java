@@ -17,7 +17,7 @@ public class BinarySearch {
 	}
 
 
-	/**
+	/**有序数组
 	 * 使用循环的方式实现二分查找
 	 * @param array
 	 * @param value
@@ -137,6 +137,9 @@ public class BinarySearch {
 		else
 			return -1;
 	}
+
+
+
 
 
 

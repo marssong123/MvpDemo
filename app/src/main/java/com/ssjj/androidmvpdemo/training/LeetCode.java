@@ -2,9 +2,11 @@ package com.ssjj.androidmvpdemo.training;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * 第一步 异常判断
@@ -45,13 +47,41 @@ public class LeetCode {
                 {6, 8, 11, 15}
         };
 
-        System.out.print(replaceSpace("We are one  people"));
+//        System.out.print(replaceSpace("We are one  people"));
+        System.out.print(inDexOf("asabcd", "guwedubcdjw"));
 
 
     }
 
 
-//    用两个队列实现栈
+    private static int inDexOf(String input1, String input2) {
+        char[] chars1 = input1.toCharArray();
+        char[] chars2 = input2.toCharArray();
+
+
+        int i = 0;
+        int j = 0;
+        while (i < chars1.length && j < chars2.length) {
+            if (chars1[i] == chars2[j]) {
+                i++;
+                j++;
+            } else {
+                i = i - j + 1;
+                j = 0;
+            }
+
+        }
+
+        if (j == chars2.length) {
+            return i - j;
+        } else {
+            return -1;
+        }
+
+    }
+
+
+    //用两个队列实现栈
 
     /**
      * 两个队列相互倒 有一个必为空
@@ -360,7 +390,7 @@ public class LeetCode {
         int sum = 0;
 
 
-        while (c1 != null && c2 != null) {
+        while (c1 != null || c2 != null) {
             sum = sum / 10;
             if (c1 != null) {
                 sum += (int) c1.value;
@@ -704,7 +734,7 @@ public class LeetCode {
         TreeNode curr;
         while (!list.isEmpty()) {
             //删除队首元素
-            curr = list.remove();
+            curr = list.removeFirst();
             System.out.print(curr.value);
             if (curr.left != null) {
                 list.add(curr.left);
@@ -814,6 +844,7 @@ public class LeetCode {
 
     /**
      * 删除链表重复元素
+     *
      * @param head
      */
     public static void delete(com.ssjj.androidmvpdemo.datastructure.Node<Integer> head) {
@@ -835,30 +866,59 @@ public class LeetCode {
         }
     }
 
+
+    /**
+     * 递归 跳过所有重复的节点 ，当不重复时才保留
+     *
+     * @param pHead
+     * @return
+     */
+    public Node deleteDuplication(Node pHead) {
+
+        //当前只有0或1个节点，之间返回
+        if (pHead == null || pHead.next == null) {
+            return pHead;
+        }
+        if (pHead.value == pHead.next.value) {//当节点与前下一个节点重复
+            Node pNode = pHead.next;
+            //跳过与当前节点重复的所有节点，寻找第一个不重复的节点
+            while (pNode != null && pNode.value == pHead.value) {
+                pNode = pNode.next;
+            }
+            return deleteDuplication(pNode);
+        } else {//当前节点不是重复节点
+            pHead.next = deleteDuplication(pHead.next);//保留当前节点，从下一个节点开始递归
+            return pHead;
+        }
+
+    }
+
+
     /**
      * 判断一个链表是否存在环儿
+     *
      * @param header
      * @return 是否存在环儿
      */
-    public static boolean isExistLoop(com.ssjj.androidmvpdemo.datastructure.Node header){
+    public static boolean isExistLoop(com.ssjj.androidmvpdemo.datastructure.Node header) {
         // 定义两个指针fast和slow,fast移动步长为2，slow移动步长为1
         com.ssjj.androidmvpdemo.datastructure.Node fast = header;
         com.ssjj.androidmvpdemo.datastructure.Node slow = header;
 
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
 
             //如果相遇则存在环儿，跳出
-            if(fast == slow){
+            if (fast == slow) {
                 break;
             }
         }
 
         // 根据跳出循环的条件return
-        if(fast == null || fast.next == null){
+        if (fast == null || fast.next == null) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -866,12 +926,13 @@ public class LeetCode {
     /**
      * 计算有环儿链表的环儿长度<br>
      * fast, slow从碰撞点出发再次碰撞就是环儿的长度
+     *
      * @param header
      * @return 返回环儿的长度
      */
-    public static int loopLength(com.ssjj.androidmvpdemo.datastructure.Node header){
+    public static int loopLength(com.ssjj.androidmvpdemo.datastructure.Node header) {
         // 如果不存在环儿，返回0
-        if(!isExistLoop(header)){
+        if (!isExistLoop(header)) {
             return 0;
         }
 
@@ -881,22 +942,22 @@ public class LeetCode {
         boolean begin = false;
         boolean again = false;
 
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
 
             // 超过两圈后停止计数，跳出循环
-            if(fast == slow && again){
+            if (fast == slow && again) {
                 break;
             }
 
             // 超过一圈后开始计数
-            if(fast == slow){
+            if (fast == slow) {
                 begin = true;
                 again = true;
             }
 
-            if(begin){
+            if (begin) {
                 ++length;
             }
         }
@@ -908,27 +969,28 @@ public class LeetCode {
      * 找出环儿的连接点<br>
      * 碰撞点到连接点的距离=头指针到连接点的距离<br>
      * 因此，分别从碰撞点、头指针开始走，相遇的那个点就是连接点<br>
+     *
      * @param head
      * @return 环儿连接点
      */
 
 
-    private com.ssjj.androidmvpdemo.datastructure.Node getNode(com.ssjj.androidmvpdemo.datastructure.Node head){
+    private com.ssjj.androidmvpdemo.datastructure.Node getNode(com.ssjj.androidmvpdemo.datastructure.Node head) {
 
         com.ssjj.androidmvpdemo.datastructure.Node slow = head;
         com.ssjj.androidmvpdemo.datastructure.Node fast = head;
 
-        while (slow.next!=null && fast.next!=null){
-            slow = slow.next ;
-            fast = fast.next.next ;
+        while (slow.next != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
 
-            if(slow == fast){
+            if (slow == fast) {
                 break;
             }
         }
 
-        fast = head ;
-        while (slow.next!=null && fast.next!=null) {
+        fast = head;
+        while (slow.next != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next;
 
@@ -936,8 +998,104 @@ public class LeetCode {
                 break;
             }
         }
-        return slow ;
+        return slow;
     }
+
+    /**
+     * 一个数组，每次传入一个数字后的中位数
+     *
+     * @param A
+     * @param n
+     * @return
+     */
+    public int[] getMiddle(int[] A, int n) {
+        // write code here
+        int[] res = new int[A.length];
+
+        // 构造最大堆
+        Comparator<Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2 - o1;
+            }
+        };
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(n);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(n, comparator);
+        // 构造最小堆
+
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 0) {
+                // 存入最小堆前判断当前元素是否小于最大堆的堆顶元素
+                if (!maxHeap.isEmpty() && A[i] < maxHeap.peek()) {
+                    minHeap.offer(maxHeap.poll());
+                    maxHeap.offer(A[i]);
+                } else {
+                    minHeap.offer(A[i]);
+                }
+                res[i] = minHeap.peek();
+            } else {
+                // 存入最大堆之前判断当前元素是否大于最小堆的堆顶元素
+                if (!minHeap.isEmpty() && A[i] > minHeap.peek()) {
+                    maxHeap.offer(minHeap.poll());
+                    minHeap.offer(A[i]);
+                } else {
+                    maxHeap.offer(A[i]);
+                }
+                res[i] = maxHeap.peek();
+            }
+        }
+
+        return res;
+    }
+
+
+    private int topK(int[] input, int k) {
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue(k);
+
+        for (int i = 0; i < input.length; i++) {
+
+            if (input[i] > priorityQueue.peek() && !priorityQueue.isEmpty()) {
+                if (priorityQueue.size() > k) {
+                    priorityQueue.poll();
+                    priorityQueue.offer(input[i]);
+                }
+            }
+
+        }
+
+        return priorityQueue.peek();
+
+    }
+
+
+//    class Producer implements Runnable {
+//        ArrayList<Integer> list = new ArrayList<>();
+//        boolean isRunning = true;
+//
+//        @Override
+//        public void run() {
+//            while (list.size() == 0) {
+//                list.add(0);
+//                try {
+//                    wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+//
+//    class Consumer implements Runnable {
+//        ArrayList<Integer> list = new ArrayList<>();
+//        boolean isRunning = true;
+//
+//        @Override
+//        public void run() {
+//            while (list.size() == 0) {
+//                notify();
+//            }
+//        }
+//    }
 
 
 }
