@@ -1,8 +1,5 @@
 package com.ssjj.androidmvpdemo.training;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-
 /**
  * Created by songyu on 2018/4/18.
  */
@@ -10,8 +7,7 @@ import java.util.concurrent.BlockingQueue;
 public class BlockModel {
     private static Integer count = 0;
     private final Integer FULL = 5;
-    private static String lock = "lock";
-    private static BlockingQueue<String> blockingQueue =new ArrayBlockingQueue<String>(5);//初始容量
+    private static Object lock = new Object();
 
 
     public static void main(String[] args) {
@@ -61,7 +57,6 @@ public class BlockModel {
                     while (count == 0) {
                         try {
                             lock.wait();
-                            BlockingQueue blockingQueue =new ArrayBlockingQueue(5);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

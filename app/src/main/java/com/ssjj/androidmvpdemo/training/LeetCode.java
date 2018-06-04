@@ -48,8 +48,9 @@ public class LeetCode {
         };
 
 //        System.out.print(replaceSpace("We are one  people"));
-        System.out.print(inDexOf("asabcd", "guwedubcdjw"));
+//        System.out.print(inDexOf("asabcd", "guwedubcdjw"));
 
+        System.out.print(charMatch("({}[]]])"));
 
     }
 
@@ -79,6 +80,62 @@ public class LeetCode {
         }
 
     }
+
+
+    void getNext(String pattern, int next[]) {
+        int j = 0;
+        int k = -1;
+        int len = pattern.length();
+        next[0] = -1;
+
+        while (j < len - 1) {
+            if (k == -1 || pattern.charAt(k) == pattern.charAt(j)) {
+
+                j++;
+                k++;
+                next[j] = k;
+            } else {
+
+                // 比较到第K个字符，说明p[0——k-1]字符串和p[j-k——j-1]字符串相等，而next[k]表示
+                // p[0——k-1]的前缀和后缀的最长共有长度，所接下来可以直接比较p[next[k]]和p[j]
+                k = next[k];
+            }
+        }
+
+    }
+
+    int kmp(String s, String pattern) {
+        int i = 0;
+        int j = 0;
+        int slen = s.length();
+        int plen = pattern.length();
+
+        int[] next = new int[plen];
+
+        getNext(pattern, next);
+
+        while (i < slen && j < plen) {
+
+            if (s.charAt(i) == pattern.charAt(j)) {
+                i++;
+                j++;
+            } else {
+                if (next[j] == -1) {
+                    i++;
+                    j = 0;
+                } else {
+                    j = next[j];
+                }
+
+            }
+
+            if (j == plen) {
+                return i - j;
+            }
+        }
+        return -1;
+    }
+
 
 
     //用两个队列实现栈
@@ -772,8 +829,8 @@ public class LeetCode {
             return;
         }
 
-        backSort(root.right, input);
         backSort(root.left, input);
+        backSort(root.right, input);
         if (root.value == input[start]) {
             start++;
         } else {
@@ -1019,9 +1076,10 @@ public class LeetCode {
                 return o2 - o1;
             }
         };
-        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(n);
         PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(n, comparator);
+
         // 构造最小堆
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(n);
 
         for (int i = 0; i < n; i++) {
             if (i % 2 == 0) {
@@ -1068,34 +1126,112 @@ public class LeetCode {
     }
 
 
-//    class Producer implements Runnable {
-//        ArrayList<Integer> list = new ArrayList<>();
-//        boolean isRunning = true;
-//
-//        @Override
-//        public void run() {
-//            while (list.size() == 0) {
-//                list.add(0);
-//                try {
-//                    wait();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-//
-//    class Consumer implements Runnable {
-//        ArrayList<Integer> list = new ArrayList<>();
-//        boolean isRunning = true;
-//
-//        @Override
-//        public void run() {
-//            while (list.size() == 0) {
-//                notify();
-//            }
-//        }
-//    }
+    /**
+     * 括号匹配
+     * haspmap保存左右字符串 ，依次入栈，找到匹配的出栈，找不到return false
+     *
+     * @param input
+     * @return
+     */
+    private static boolean charMatch(String input) {
 
+        Stack<Character> stack = new Stack<>();
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put('}', '{');
+        map.put(']', '[');
+
+        for (int i = 0; i < input.length(); i++) {
+            if (map.containsValue(input.charAt(i))) {
+                stack.push(input.charAt(i));
+            }
+
+            if (map.containsKey(input.charAt(i))) {
+                if (stack.isEmpty()) {
+                    return false; //对不上
+                }
+                if (map.get(input.charAt(i)) == stack.peek()) {
+
+                    stack.pop();//没有
+                } else {
+                    return false;
+                }
+            }
+
+
+        }
+
+        if (stack.isEmpty()) {
+            return true;
+        }
+        return false;
+
+    }
+
+
+    public int smallestDifference(int[] a, int[] b) {
+        int sizeA = a.length, sizeB = b.length;
+        if (sizeA <= 0 || sizeB <= 0) {
+            return 0;
+        }
+
+        int result = Integer.MAX_VALUE;
+        Arrays.sort(b);
+
+        for (int i = 0; i < sizeA; i++) {
+            int low = 0, high = sizeB - 1, target = a[i], mid = 0;
+            while (low <= high) {
+                mid = low + (high - low) / 2;
+                if (b[mid] == target) {
+                    return 0;
+                } else if (b[mid] < target) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
+            result = min(result, Math.abs(a[i] - b[mid]));
+            if (mid > 0) {
+                result = min(result, Math.abs(a[i] - b[mid - 1]));
+            }
+            if (mid < sizeB - 1) {
+                result = min(result, Math.abs(a[i] - b[mid + 1]));
+            }
+        }
+        return result;
+    }
+
+
+    public int min(int a, int b) {
+        if (a <= b) {
+            return a;
+
+        }
+        return b;
+    }
+
+    int mid(int a[], int b[], int m, int n, int k) //假定m<=n
+    {
+        if (m > n)  //若不是m<=n,调换一下
+            return mid(b, a, n, m, k);
+        if (m == 0)
+            return b[k - 1];
+        if (k == 1)
+            return Math.min(a[0], b[0]);
+
+        int low = Math.min(k / 2, m);
+        int high = k - low;
+        if (a[low] == b[high])  //第k个数找到
+            return a[low];
+        if (a[low] > b[high])   //第k个数肯定不在b[0..ib]，所以，删除这些，找第k-ib个数
+            return mid(a, b, m, n - high, k - high);
+        else  //a[ia]<b[ib] 第k个数肯定不在a[0...ia],所以，删除这些，找k-ia个数
+            return mid(a, b, m - low, n, k - low);
+    }
+
+    int getMid(int a[], int b[], int m, int n) {
+        int k = (m + n) / 2;
+        return mid(a, b, m, n, k);
+    }
 
 }
