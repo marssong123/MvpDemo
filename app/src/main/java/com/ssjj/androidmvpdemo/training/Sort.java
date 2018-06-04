@@ -1,6 +1,5 @@
 package com.ssjj.androidmvpdemo.training;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -56,6 +55,8 @@ public class Sort {
                 high--;
             }
             numbers[low] = numbers[high];//比中轴小的记录移到低端
+
+
             while (low < high && numbers[low] < temp) {
                 low++;
             }
@@ -163,14 +164,14 @@ public class Sort {
 
     public static void main(String[] args) {
         int[] a = {49, 38, 65, 97, 76, 13, 27, 49, 78, 34, 12, 64};
-        int arrayLength = a.length;
+        int index = a.length - 1;
         //循环建堆
-        for (int i = 0; i < arrayLength - 1; i++) {
+        for (int i = 0; i < index; i++) {
             //建堆
-            buildMaxHeap(a, arrayLength - 1 - i);
+            buildMaxHeap(a, index - i);
             //交换堆顶和最后一个元素
-            swap(a, 0, arrayLength - 1 - i);
-            System.out.println(Arrays.toString(a));
+            swap(a, 0, index - i);
+            System.out.println(a[index - i] + " ");
         }
     }
 
@@ -227,6 +228,11 @@ public class Sort {
         // write code here
         int[] res = new int[A.length];
 
+
+        // 构造最小堆
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(n);
+
+
         // 构造最大堆
         Comparator<Integer> comparator = new Comparator<Integer>() {
             @Override
@@ -235,8 +241,6 @@ public class Sort {
             }
         };
         PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(n, comparator);
-        // 构造最小堆
-        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(n);
 
         for (int i = 0; i < n; i++) {
             if (i % 2 == 0) {
@@ -262,4 +266,42 @@ public class Sort {
 
         return res;
     }
+
+
+    private void mySort(int[] nums, int low, int high) {
+        for (int i = 0; i < nums.length; i++) {
+
+            int mid = getMiddle(nums, low, high);
+            mySort(nums, 0, mid - 1);
+            mySort(nums, mid + 1, high);
+
+        }
+
+    }
+
+    private int mid(int[] nums, int low, int high) {
+
+        int mid = low;
+        while (low <= high) {
+
+            while (low < high && nums[high] > nums[mid]) {
+                high--;
+            }
+            nums[low] = nums[high];//比中轴小的移动到低端
+
+
+            while (low < high && nums[low] < nums[mid]) {
+                low++;
+            }
+
+            nums[high] = nums[low];
+
+        }
+
+        nums[low] = nums[mid];
+        return  low ;
+    }
+
+
+
 }

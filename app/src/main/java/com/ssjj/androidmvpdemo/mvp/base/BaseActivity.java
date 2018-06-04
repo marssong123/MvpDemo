@@ -5,14 +5,13 @@ package com.ssjj.androidmvpdemo.mvp.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends Activity {
     public Activity mActivity;
 
     @Override
