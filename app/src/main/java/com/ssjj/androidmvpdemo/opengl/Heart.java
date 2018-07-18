@@ -24,7 +24,7 @@ public class Heart {
 
         this.type = type;
         mContext = context;
-
+        addBitmap();
     }
 
     //实时坐标
@@ -62,7 +62,7 @@ public class Heart {
         return bitmap;
     }
 
-    public void setBitmap() {
+    public void addBitmap() {
 
         int resId = R.drawable.icon_live_heart0;
 

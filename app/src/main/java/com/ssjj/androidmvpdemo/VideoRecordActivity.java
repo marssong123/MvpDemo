@@ -1,17 +1,34 @@
 package com.ssjj.androidmvpdemo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class VideoRecordActivity extends AppCompatActivity {
-    private static final String TAG = "VideoRecordActivity" ;
+    private static final String TAG = "VideoRecordActivity";
+    @Bind(R.id.my_texture_view)
+    MyTextureView myTextureView;
+    @Bind(R.id.btn_take)
+    Button btnTake;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_video_record);
-        setContentView(ViewStore.getInstance().getView(R.layout.activity_video_record ,VideoRecordActivity.this));
+        setContentView(R.layout.activity_video_record);
+        ButterKnife.bind(this);
+//        setContentView(ViewStore.getInstance().getView(R.layout.activity_video_record ,VideoRecordActivity.this));
         Log.e(TAG, "B onCreate: ");
+        btnTake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myTextureView.take();
+            }
+        });
     }
 
 
@@ -26,6 +43,13 @@ public class VideoRecordActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.e(TAG, "B onPause: ");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, "B onResume: ");
 
     }
 

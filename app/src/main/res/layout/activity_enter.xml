@@ -6,6 +6,8 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
+
+
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
@@ -37,13 +39,15 @@
 
     <Button
         android:id="@+id/btn_my3"
-
+    android:visibility="gone"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:gravity="center"
         android:text="点击" />
 
     <Button
+        android:visibility="gone"
+
         android:id="@+id/btn_my4"
 
         android:layout_width="100dp"
@@ -51,12 +55,20 @@
         android:gravity="center"
         android:text="点击" />
     <Button
+        android:visibility="gone"
+
         android:id="@+id/btn_my5"
 
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:gravity="center"
         android:text="点击" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/my_simple_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
 
 
 </com.ssjj.androidmvpdemo.words.MyViewGroup>

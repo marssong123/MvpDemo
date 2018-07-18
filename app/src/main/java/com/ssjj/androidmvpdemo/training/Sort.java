@@ -1,6 +1,8 @@
 package com.ssjj.androidmvpdemo.training;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
@@ -40,6 +42,21 @@ public class Sort {
 //    如果比它小交换，比它大不做任何处理；交换了以后再和小的那端比，比它小不交换，比他大交换。
 //    这样循环往复，一趟排序完成，左边就是比中轴小的，右边就是比中轴大的，然后再用分治法，分别对这两个独立的数组进行排序。
 
+
+    /**
+     * @param numbers 带排序数组
+     * @param low     开始位置
+     * @param high    结束位置
+     */
+    public static void quickSort(int[] numbers, int low, int high) {
+        if (low < high) {
+            int middle = getMiddle(numbers, low, high); //将numbers数组进行一分为二
+            quickSort(numbers, low, middle - 1);   //对低字段表进行递归排序
+            quickSort(numbers, middle + 1, high); //对高字段表进行递归排序
+        }
+
+    }
+
     /**
      * 查找出中轴（默认是最低位low）的在numbers数组排序后所在位置
      *
@@ -62,24 +79,12 @@ public class Sort {
             }
             numbers[high] = numbers[low]; //比中轴大的记录移到高端
         }
-        numbers[low] = temp; //中轴记录到尾
+        numbers[low] = temp; //新的中轴
         return low; // 返回中轴的位置
     }
 
 
-    /**
-     * @param numbers 带排序数组
-     * @param low     开始位置
-     * @param high    结束位置
-     */
-    public static void quickSort(int[] numbers, int low, int high) {
-        if (low < high) {
-            int middle = getMiddle(numbers, low, high); //将numbers数组进行一分为二
-            quickSort(numbers, low, middle - 1);   //对低字段表进行递归排序
-            quickSort(numbers, middle + 1, high); //对高字段表进行递归排序
-        }
 
-    }
 
     /**
      * 快速排序
@@ -147,10 +152,10 @@ public class Sort {
         for (int i = 0; i < size; i++) {
             temp = numbers[i];
             //假如temp比前面的值小，则将前面的值后移
-            for (j = i; j > 0 && temp < numbers[j - 1]; j--) {
+            for (j = i; j > 0 && temp < numbers[j - 1]; j--) {//对比之前的值
                 numbers[j] = numbers[j - 1];
             }
-            numbers[j] = temp;
+            numbers[j] = temp; //恢复
         }
     }
 
@@ -302,6 +307,32 @@ public class Sort {
         return  low ;
     }
 
+    /**
+     * @param s 求最长无重复子字符串
+     * @return
+     */
+    public int lengthOfLongestSubstring(String s) {
+        // write your code here
+        if(s.length()==0){
+            return 0;
+        }
+        int maxLength=1;
+        List<Character> list=new ArrayList<Character>();
+        list.add(s.charAt(0));
+        for(int i=1;i<s.length();i++){
+            if(list.contains(s.charAt(i))){
+                int index=list.indexOf(s.charAt(i));
+                list=list.subList(index+1, list.size());//删除前一个重复的
+                list.add(s.charAt(i));
+//              System.out.println(list);
+                maxLength=Math.max(maxLength, list.size());
+            }else{
+                list.add(s.charAt(i));
+                maxLength=Math.max(maxLength, list.size());
+            }
+        }
+        return maxLength;
+    }
 
 
 }
