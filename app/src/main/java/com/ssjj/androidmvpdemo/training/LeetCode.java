@@ -137,7 +137,6 @@ public class LeetCode {
     }
 
 
-
     //用两个队列实现栈
 
     /**
@@ -399,31 +398,31 @@ public class LeetCode {
     }
 
 
-    /**
-     * 最长子串长度HaspMap 或者两次循环
-     *
-     * @param target
-     */
-    private void getMaxString(String target) {
-        char[] res = target.toCharArray();
-        HashMap map = new HashMap();
-        int num = 0;
-        int max = 0;
-        for (int i = 0; i < res.length; i++) {
-            if (map.containsKey(res[i])) {
-                if (num > max) {
-                    max = num;
-                }
-                num = 0;
-                map = new HashMap();
-            } else {
-                map.put(res[i], i);
-                num++;
-            }
-        }
-
-
-    }
+//    /**
+//     * 最长子串长度HaspMap 或者两次循环
+//     *
+//     * @param target
+//     */
+//    private void getMaxString(String target) {
+//        char[] res = target.toCharArray();
+//        HashMap map = new HashMap();
+//        int num = 0;
+//        int max = 0;
+//        for (int i = 0; i < res.length; i++) {
+//            if (map.containsKey(res[i])) {
+//                if (num > max) {
+//                    max = num;
+//                }
+//                num = 0;
+//                map = new HashMap();
+//            } else {
+//                map.put(res[i], i);
+//                num++;
+//            }
+//        }
+//
+//
+//    }
 
 
     /**
@@ -506,36 +505,26 @@ public class LeetCode {
         if (node1 == null) {
             return node2;
         }
-
         if (node2 == null) {
             return node1;
         }
-
         Node result = new Node(0);
-
         while (node1 != null && node2 != null) {
             if ((int) node1.value < (int) node2.value) {
-
                 result.next = node1;
                 node1 = node1.next;
-
             } else {
                 result.next = node2;
                 node2 = node2.next;
-
             }
-
             result = result.next;
         }
-
         if (node1 != null) {
             result.next = node1;
         }
-
         if (node2 != null) {
             result.next = node2;
         }
-
 
         return result.next;
     }

@@ -16,10 +16,15 @@
 package com.ssjj.androidmvpdemo.opengl;
 
 import android.app.Activity;
-import android.opengl.GLSurfaceView;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
+import com.ssjj.androidmvpdemo.R;
+import com.ssjj.androidmvpdemo.util.RandomUtils;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /*
  * There is not much here, but at the bottom, it setups immersive Mode, so that only the app
@@ -28,48 +33,54 @@ import android.view.View;
 
 public class SurfaceActivity extends Activity {
 
-    private GLSurfaceView mGLView;
+    @Bind(R.id.my_surface)
+    MSurfaceView mySurface;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGLView = new MyGLSurfaceView(this);
-        setContentView(mGLView);
+        setContentView(R.layout.surface);
+        ButterKnife.bind(this);
+
+        mySurface.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SurfaceActivity.this, "heart", Toast.LENGTH_SHORT).show();
+                int type = RandomUtils.getRandom(0, 6);
+                mySurface.addHeart(SurfaceActivity.this, type);
+            }
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i <10000 ; i++) {
+                    try {
+                        Thread.sleep(200);
+                        Toast.makeText(SurfaceActivity.this, "heart", Toast.LENGTH_SHORT).show();
+                        int type = RandomUtils.getRandom(0, 6);
+                        mySurface.addHeart(SurfaceActivity.this, type);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        });
+
+
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // consume significant memory here.
-        mGLView.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mGLView.onResume();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);  //this line is api 19+
-            } else {
-                getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
-            }
-        }
-    }
+
 }

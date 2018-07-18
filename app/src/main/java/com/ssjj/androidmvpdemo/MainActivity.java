@@ -15,13 +15,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.ssjj.androidmvpdemo.anrmonitor.AnrWatchDog;
 import com.ssjj.androidmvpdemo.mvp.base.MvpActivity;
 import com.ssjj.androidmvpdemo.mvp.bean.BaseBean;
 import com.ssjj.androidmvpdemo.mvp.bean.HotWordsBean;
 import com.ssjj.androidmvpdemo.mvp.presenter.MainPresenter;
 import com.ssjj.androidmvpdemo.mvp.view.MainView;
-import com.ssjj.androidmvpdemo.opengl.OpenGLES20Activity;
 import com.ssjj.androidmvpdemo.words.MyView;
 import com.ssjj.androidmvpdemo.words.MyViewGroup;
 
@@ -45,6 +45,12 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     Button btnMy4;
     @Bind(R.id.rl_root)
     MyViewGroup rlRoot;
+    @Bind(R.id.btn_my5)
+    Button btnMy5;
+    @Bind(R.id.my_simple_view)
+    SimpleDraweeView mySimpleView;
+
+
     private Object lock = new Object();
 
     AnrWatchDog anrWatchDog;
@@ -80,11 +86,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this , OpenGLES20Activity.class) ;
+                Intent intent = new Intent(MainActivity.this, VideoRecordActivity.class);
                 startActivity(intent);
-
-
-
+//
 
             }
         });
@@ -99,7 +103,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
                         synchronized (lock) {
                             MainPresenter mainPresenter = new MainPresenter(MainActivity.this);
                             mainPresenter.loadWords(10);
-                            Log.e(TAG, "run: loadWords" );
+                            Log.e(TAG, "run: loadWords");
 
                         }
                     }
@@ -108,16 +112,17 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
             }
         });
 
-        Log.e(TAG, "A onCreate: " );
+        Log.e(TAG, "A onCreate: ");
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e(TAG, "A onStart: " );
+        Log.e(TAG, "A onStart: ");
 
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -129,7 +134,14 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(TAG, "A onStop: " );
+        Log.e(TAG, "A onStop: ");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, "A onResume: ");
 
     }
 
@@ -137,7 +149,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "A onDestroy: " );
+        Log.e(TAG, "A onDestroy: ");
     }
 
     private static Handler mHandler = new Handler(Looper.getMainLooper()) {
