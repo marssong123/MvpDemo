@@ -240,4 +240,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     private void  dev5(){}
 
+    private void  dev6(){}
+
 }
