@@ -5,126 +5,187 @@ package com.ssjj.androidmvpdemo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.ssjj.androidmvpdemo.anrmonitor.AnrWatchDog;
 import com.ssjj.androidmvpdemo.mvp.base.MvpActivity;
 import com.ssjj.androidmvpdemo.mvp.bean.BaseBean;
 import com.ssjj.androidmvpdemo.mvp.bean.HotWordsBean;
 import com.ssjj.androidmvpdemo.mvp.presenter.MainPresenter;
 import com.ssjj.androidmvpdemo.mvp.view.MainView;
-import com.ssjj.androidmvpdemo.ndk.MyJni;
-import com.ssjj.androidmvpdemo.now.MusicActivity;
-import com.ssjj.androidmvpdemo.ui.MyPopWindow;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import com.ssjj.androidmvpdemo.words.MyView;
+import com.ssjj.androidmvpdemo.words.MyViewGroup;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends MvpActivity<MainPresenter> implements MainView {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "VideoRecordActivity";
     @Bind(R.id.text1)
     TextView text1;
-    @Bind(R.id.rl_root)
-    RelativeLayout rlRoot;
     @Bind(R.id.btn_my)
-    Button btnMy;
+    MyView btnMy;
+    @Bind(R.id.btn_my1)
+    Button btnMy1;
+    @Bind(R.id.btn_my2)
+    Button btnMy2;
+    @Bind(R.id.btn_my3)
+    Button btnMy3;
+    @Bind(R.id.btn_my4)
+    Button btnMy4;
+    @Bind(R.id.rl_root)
+    MyViewGroup rlRoot;
+    @Bind(R.id.btn_my5)
+    Button btnMy5;
+    @Bind(R.id.my_simple_view)
+    SimpleDraweeView mySimpleView;
+
+
+    private Object lock = new Object();
+
+    AnrWatchDog anrWatchDog;
+
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
         ButterKnife.bind(this);
-        //请求接口
-        mvpPresenter.loadWords(10);
+        handler = new Handler();
+        anrWatchDog = new AnrWatchDog.Builder().timeout(30000).ignoreDebugger(true).anrListener(new AnrWatchDog.AnrListener() {
+            @Override
+            public void onAnrHappened(String stackTraceInfo) {
+                Log.w(TAG, "anr warning:" + stackTraceInfo);
+            }
+        }).build();
+        anrWatchDog.start();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                handler.postDelayed(this, 3000);
+            }
+        }, 3000);
 
-        final View result = LayoutInflater.from(this).inflate(R.layout.test, null, false);
-
-        final MyPopWindow myPopWindow = new MyPopWindow(MainActivity.this);
-        myPopWindow.setContentView(result);
-        text1.setText(new MyJni().getString());
         btnMy.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-                myPopWindow.showAsDropDown(view,-200,-200);
-                Intent intent = new Intent(MainActivity.this, MusicActivity.class);
+                Intent intent = new Intent(MainActivity.this, VideoRecordActivity.class);
                 startActivity(intent);
-
-                while (true){
-                    Toast toast =new Toast(MainActivity.this);
-                    toast.setView(new View(MainActivity.this));
-                    toast.show();
-                }
-
+//
 
             }
         });
 
-
-    }
-
-    public static void main() {
-
-    }
-
-    private void rxJavaMethod() {
-        List<String> list = new ArrayList<>();
-        Observable.create(new Observable.OnSubscribe<File>() {
+        btnMy1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void call(Subscriber<? super File> subscriber) {
-                subscriber.onCompleted();
-            }
-        }).filter(new Func1<File, Boolean>() {
-            @Override
-            public Boolean call(File file) {
-                return file.getName().endsWith(".png");
-            }
-        }).map(new Func1<File, String>() {
-            @Override
-            public String call(File file) {
-                return file.getName();
-            }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
+            public void onClick(View v) {
+
+                new Thread(new Runnable() {
                     @Override
-                    public void onCompleted() {
-                        Log.d(TAG, "onCompleted: ");
-                    }
+                    public void run() {
+                        synchronized (lock) {
+                            MainPresenter mainPresenter = new MainPresenter(MainActivity.this);
+                            mainPresenter.loadWords(10);
+                            Log.e(TAG, "run: loadWords");
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "onCompleted: ");
-
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-
+                        }
                     }
                 });
 
+            }
+        });
+
+        Log.e(TAG, "A onCreate: ");
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG, "A onStart: ");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, "A onPause: ");
 
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e(TAG, "A onStop: ");
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, "A onResume: ");
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "A onDestroy: ");
+    }
+
+    private static Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+
+        @Override
+        public void dispatchMessage(Message msg) {
+            Log.i(TAG, "dispatchMessage: " + msg.arg1);
+            super.dispatchMessage(msg);
+        }
+    };
+
+
+    public void show(String msg) {
+        Log.e(TAG, "run: 3");
+
+        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        boolean back = super.dispatchTouchEvent(event);
+        Log.e("touch", "MainActivity dispatchTouchEvent: " + back);
+        return back;
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        boolean back = super.onTouchEvent(event);
+        Log.e("touch", "MainActivity onTouchEvent: " + back);
+        return back;
+    }
 
     @Override
     protected MainPresenter createPresenter() {
@@ -134,8 +195,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     @Override
     public void getDataSuccess(BaseBean bean) {
-        //接口成功回调
-
         HotWordsBean hotWordsBean = (HotWordsBean) bean;
         String hotlist = "";
         for (String hotword : hotWordsBean.getData()) {
@@ -163,15 +222,5 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     @Override
     public void hideLoading() {
     }
-
-    private void god1(){}
-
-    private void god2(){}
-
-    private void god3(){}
-
-    private void god4(){}
-
-
 
 }
