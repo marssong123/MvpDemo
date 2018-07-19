@@ -242,6 +242,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     private void  dev6(){}
 
+<<<<<<< dd25ac48499620e17631e6792f8594976d8588cb
     private void  dev7(){}
 
+=======
+>>>>>>> commit start
 }
