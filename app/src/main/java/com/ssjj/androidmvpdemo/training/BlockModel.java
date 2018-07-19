@@ -71,5 +71,6 @@ public class BlockModel {
 
     }
 
+    private void test1(){}
 
 }
