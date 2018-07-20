@@ -224,22 +224,11 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
     }
 
 
-    private void  foo1(){}
+   private  void fix1(){}
 
-    private void  foo2(){}
+   private  void fix2(){}
 
-    private void  foo3(){}
+   private  void fix3(){}
 
-    private void  dev1(){}
-
-    private void  dev2(){}
-
-    private void  dev3(){}
-
-    private void  dev4(){}
-
-    private void  dev5(){}
-
-    private void  dev6(){}
 
 }
