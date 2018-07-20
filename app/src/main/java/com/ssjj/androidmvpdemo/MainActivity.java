@@ -228,5 +228,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
    private  void fix2(){}
 
+   private  void fix3(){}
+
 
 }
