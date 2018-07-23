@@ -233,7 +233,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainView
 
     private void test1(){}
 
-    private void test2(){}
 
     private  void newTest2(){}
 
