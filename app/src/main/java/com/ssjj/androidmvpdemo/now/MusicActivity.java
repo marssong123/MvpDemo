@@ -25,29 +25,5 @@ public class MusicActivity extends AppCompatActivity {
 
     }
 
-    private void foo1() {
-
-    }
-
-    private void foo2() {
-
-    }
-
-    private void foo3() {
-
-    }
-
-    private void foo4() {
-
-    }
-
-    private void foo5() {
-
-    }
-
-    private void foo6() {
-
-    }
-
 
 }
