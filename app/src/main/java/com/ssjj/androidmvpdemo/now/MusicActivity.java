@@ -26,7 +26,7 @@ public class MusicActivity extends AppCompatActivity {
     }
 
 
-    public void test (){
+    public void test2 (){
 
     }
 
